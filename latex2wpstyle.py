@@ -29,7 +29,8 @@
 HTML = False
 
 # color of LaTeX formulas
-textcolor = "000000"
+textcolor = "ffffff"
+bgcolor = "000000"
 
 # colors that can be used in the text
 colors = { "red" : "ff0000" , "green" : "00ff00" , "blue" : "0000ff" }
@@ -64,7 +65,7 @@ endthm = "</em></blockquote>\n<p>\n"
 
 
 beginproof = "<em>Proof:</em> "
-endproof = "$latex \Box&fg=000000$\n\n"
+endproof = "$latex \\Box&fg=000000$\n\n"
 
 section = "\n<p>\n<b>_SecNumb_. _SecName_ </b>\n<p>\n"
 sectionstar = "\n<p>\n<b> _SecName_ </b>\n<p>\n"
@@ -95,8 +96,8 @@ fontstyle = {
 
 M = [     ["\\to","\\rightarrow"] ,
           ["\\B","\\{ 0,1 \\}" ],
-          ["\\E","\mathop{\\mathbb E}"],
-          ["\\P","\mathop{\\mathbb P}"],
+          ["\\E","\\mathop{\\mathbb E}"],
+          ["\\P","\\mathop{\\mathbb P}"],
           ["\\N","{\\mathbb N}"],
           ["\\Z","{\\mathbb Z}"],
           ["\\C","{\\mathbb C}"],

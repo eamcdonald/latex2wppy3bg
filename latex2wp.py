@@ -1,27 +1,27 @@
-"""
- Copyright 2009 Luca Trevisan
-
- Additional contributors: Radu Grigore
-
- LaTeX2WP version 0.6.2
-
- This file is part of LaTeX2WP, a program that converts
- a LaTeX document into a format that is ready to be
- copied and pasted into WordPress.
-
- You are free to redistribute and/or modify LaTeX2WP under the
- terms of the GNU General Public License (GPL), version 3
- or (at your option) any later version.
-
- I hope you will find LaTeX2WP useful, but be advised that
- it comes WITHOUT ANY WARRANTY; without even the implied warranty
- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GPL for more details.
-
- You should have received a copy of the GNU General Public
- License along with LaTeX2WP.  If you can't find it,
- see <http://www.gnu.org/licenses/>.
-"""
+# """
+#  Copyright 2009 Luca Trevisan
+# 
+#  Additional contributors: Radu Grigore
+# 
+#  LaTeX2WP version 0.6.2
+# 
+#  This file is part of LaTeX2WP, a program that converts
+#  a LaTeX document into a format that is ready to be
+#  copied and pasted into WordPress.
+# 
+#  You are free to redistribute and/or modify LaTeX2WP under the
+#  terms of the GNU General Public License (GPL), version 3
+#  or (at your option) any later version.
+# 
+#  I hope you will find LaTeX2WP useful, but be advised that
+#  it comes WITHOUT ANY WARRANTY; without even the implied warranty
+#  of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GPL for more details.
+# 
+#  You should have received a copy of the GNU General Public
+#  License along with LaTeX2WP.  If you can't find it,
+#  see <http://www.gnu.org/licenses/>.
+# """
 
 
 import re
@@ -38,18 +38,18 @@ count["section"] = count["subsection"] = count["equation"] = 0
 ref={}
 
 endlatex = "&fg="+textcolor
-if HTML : endproof = "<img src=\"http://l.wordpress.com/latex.php?latex=\Box&fg=000000\">"
+if HTML : endproof = "<img src=\"http://l.wordpress.com/latex.php?latex=\\Box&fg=000000\">"
 
 
 inthm = ""
 
-"""
- At the beginning, the commands \$, \% and \& are temporarily
- replaced by placeholders (the second entry in each 4-tuple).
- At the end, The placeholders in text mode are replaced by
- the third entry, and the placeholders in math mode are
- replaced by the fourth entry.
-"""
+# """
+#  At the beginning, the commands \\$, \\% and \\& are temporarily
+#  replaced by placeholders (the second entry in each 4-tuple).
+#  At the end, The placeholders in text mode are replaced by
+#  the third entry, and the placeholders in math mode are
+#  replaced by the fourth entry.
+# """
 
 esc = [["\\$","_dollar_","&#36;","\\$"],
        ["\\%","_percent_","&#37;","\\%"],
@@ -95,9 +95,9 @@ cb = re.compile("\\{|}")
 
 def extractbody(m) :
 
-    begin = re.compile("\\\\begin\s*")
+    begin = re.compile("\\\\begin\\s*")
     m= begin.sub("\\\\begin",m)
-    end = re.compile("\\\\end\s*")
+    end = re.compile("\\\\end\\s*")
     m = end.sub("\\\\end",m)
     
     beginenddoc = re.compile("\\\\begin\\{document}"
@@ -108,10 +108,10 @@ def extractbody(m) :
     else :
        m = parse[1]
 
-    """
-      removes comments, replaces double returns with <p> and
-      other returns and multiple spaces by a single space.
-    """
+    # """
+    #   removes comments, replaces double returns with <p> and
+    #   other returns and multiple spaces by a single space.
+    # """
 
     for e in esc :
         m = m.replace(e[0],e[1])
@@ -126,11 +126,11 @@ def extractbody(m) :
     spaces=re.compile("(\n|[ ])+")
     m=spaces.sub(" ",m)
 
-    """
-     removes text between \iffalse ... \fi and
-     between \iftex ... \fi keeps text between
-     \ifblog ... \fi
-    """
+    # """
+    #  removes text between \\iffalse ... \\fi and
+    #  between \iftex ... \fi keeps text between
+    #  \ifblog ... \fi
+    # """
 
 
     ifcommands = re.compile("\\\\iffalse|\\\\ifblog|\\\\iftex|\\\\fi")
@@ -142,10 +142,10 @@ def extractbody(m) :
             m=m+L[2*i-1]
         m=m+L[2*i]
 
-    """
-     changes $$ ... $$ into \[ ... \] and reformats
-     eqnarray* environments as regular array environments
-    """
+    # """
+    #  changes $$ ... $$ into \[ ... \] and reformats
+    #  eqnarray* environments as regular array environments
+    # """
 
     doubledollar = re.compile("\\$\\$")
     L=doubledollar.split(m)
@@ -191,8 +191,8 @@ def convertsqb(m) :
 def converttables(m) :
         
 
-    retable = re.compile("\\\\begin\s*\\{tabular}.*?\\\\end\s*\\{tabular}"
-                         "|\\\\begin\s*\\{btabular}.*?\\\\end\s*\\{btabular}")
+    retable = re.compile("\\\\begin\\s*\\{tabular}.*?\\\\end\\s*\\{tabular}"
+                         "|\\\\begin\\s*\\{btabular}.*?\\\\end\\s*\\{btabular}")
     tables = retable.findall(m)
     rest = retable.split(m)
 
@@ -228,9 +228,9 @@ def convertmacros(m) :
 
 def convertonetable(m,border) :
 
-    tokens = re.compile("\\\\begin\\{tabular}\s*\\{.*?}"
+    tokens = re.compile("\\\\begin\\{tabular}\\s*\\{.*?}"
                         "|\\\\end\\{tabular}"
-                        "|\\\\begin\\{btabular}\s*\\{.*?}"
+                        "|\\\\begin\\{btabular}\\s*\\{.*?}"
                         "|\\\\end\\{btabular}"
                         "|&|\\\\\\\\")
 
@@ -295,11 +295,11 @@ def processmath( M ) :
         md = mathdelim.findall(m)
         mb = mathdelim.split(m)
 
-        """
-          In what follows, md[0] contains the initial delimiter,
-          which is either \begin{equation}, or $, or \[, and
-          mb[1] contains the actual mathematical equation
-        """
+        # """
+        #   In what follows, md[0] contains the initial delimiter,
+        #   which is either \begin{equation}, or $, or \[, and
+        #   mb[1] contains the actual mathematical equation
+        # """
         
         if md[0] == "$" :
             if HTML :
@@ -309,7 +309,7 @@ def processmath( M ) :
                 m=m.replace("'","&#39;")
                 m="<img src=\"http://l.wordpress.com/latex.php?latex=%7B"+m+"%7D"+endlatex+"\">"
             else :
-                m="$latex {"+mb[1]+"}"+endlatex+"$"
+                m="$latex {"+mb[1]+"}"+endlatex+"&bg="+bgcolor+"$"
 
         else :
             if md[0].find("\\begin") != -1 :
@@ -320,18 +320,18 @@ def processmath( M ) :
                 mb[1]=mb[1].replace("&","%26")
                 mb[1]=mb[1].replace(" ","+")
                 mb[1]=mb[1].replace("'","&#39;")
-                m = "<p align=center><img src=\"http://l.wordpress.com/latex.php?latex=\displaystyle " + mb[1] +endlatex+"\"></p>\n"
+                m = "<p align=center><img src=\"http://l.wordpress.com/latex.php?latex=\\displaystyle " + mb[1] +endlatex+"\"></p>\n"
             else :
-                m = "<p align=center>$latex \displaystyle " + mb[1] +endlatex+"$</p>\n"
+                m = "<p align=center>$latex \\displaystyle " + mb[1] +endlatex+"&bg="+bgcolor+"$</p>\n"
             if m.find("\\label") != -1 :
                 mnolab = label.split(m)
                 mlab = label.findall(m)
-                """
-                 Now the mathematical equation, which has already
-                 been formatted for WordPress, is the union of
-                 the strings mnolab[0] and mnolab[1]. The content
-                 of the \label{...} command is in mlab[0]
-                """
+                # """
+                #  Now the mathematical equation, which has already
+                #  been formatted for WordPress, is the union of
+                #  the strings mnolab[0] and mnolab[1]. The content
+                #  of the \label{...} command is in mlab[0]
+                # """
                 lab = mlab[0]
                 lab=cb.split(lab)[1]
                 lab=lab.replace(":","")
@@ -416,10 +416,10 @@ def convertsection (m) :
  
       L=cb.split(m)
 
-      """
-        L[0] contains the \\section or \\section* command, and
-        L[1] contains the section name
-      """
+      # """
+      #   L[0] contains the \\section or \\section* command, and
+      #   L[1] contains the section name
+      # """
 
       if L[0].find("*") == -1 :
           t=section
@@ -580,7 +580,7 @@ def processfontstyle(w) :
 def convertref(m) :
     global ref
     
-    p=re.compile("\\\\ref\s*\\{.*?}|\\\\eqref\s*\\{.*?}")
+    p=re.compile("\\\\ref\\s*\\{.*?}|\\\\eqref\\s*\\{.*?}")
 
     T=p.split(m)
     M=p.findall(m)
@@ -597,43 +597,43 @@ def convertref(m) :
         w=w+T[i+1]
     return w
 
-"""
-The program makes several passes through the input.
-
-In a first clean-up, all text before \begin{document}
-and after \end{document}, if present, is removed,
-all double-returns are converted
-to <p>, and all remaining returns are converted to
-spaces.
-
-The second step implements a few simple macros. The user can
-add support for more macros if desired by editing the
-convertmacros() procedure.
-
-Then the program separates the mathematical
-from the text parts. (It assumes that the document does
-not start with a mathematical expression.) 
-
-It makes one pass through the text part, translating
-environments such as theorem, lemma, proof, enumerate, itemize,
-\em, and \bf. Along the way, it keeps counters for the current
-section and subsection and for the current numbered theorem-like
-environment, as well as a  flag that tells whether one is
-inside a theorem-like environment or not. Every time a \label{xx}
-command is encountered, we give ref[xx] the value of the section
-in which the command appears, or the number of the theorem-like
-environment in which it appears (if applicable). Each appearence
-of \label is replace by an html "name" tag, so that later we can
-replace \ref commands by clickable html links.
-
-The next step is to make a pass through the mathematical environments.
-Displayed equations are numbered and centered, and when a \label{xx}
-command is encountered we give ref[xx] the number of the current
-equation. 
-
-A final pass replaces \ref{xx} commands by the number in ref[xx],
-and a clickable link to the referenced location.
-"""
+# """
+# The program makes several passes through the input.
+# 
+# In a first clean-up, all text before \begin{document}
+# and after \end{document}, if present, is removed,
+# all double-returns are converted
+# to <p>, and all remaining returns are converted to
+# spaces.
+# 
+# The second step implements a few simple macros. The user can
+# add support for more macros if desired by editing the
+# convertmacros() procedure.
+# 
+# Then the program separates the mathematical
+# from the text parts. (It assumes that the document does
+# not start with a mathematical expression.) 
+# 
+# It makes one pass through the text part, translating
+# environments such as theorem, lemma, proof, enumerate, itemize,
+# \em, and \bf. Along the way, it keeps counters for the current
+# section and subsection and for the current numbered theorem-like
+# environment, as well as a  flag that tells whether one is
+# inside a theorem-like environment or not. Every time a \label{xx}
+# command is encountered, we give ref[xx] the value of the section
+# in which the command appears, or the number of the theorem-like
+# environment in which it appears (if applicable). Each appearence
+# of \label is replace by an html "name" tag, so that later we can
+# replace \ref commands by clickable html links.
+# 
+# The next step is to make a pass through the mathematical environments.
+# Displayed equations are numbered and centered, and when a \label{xx}
+# command is encountered we give ref[xx] the number of the current
+# equation. 
+# 
+# A final pass replaces \ref{xx} commands by the number in ref[xx],
+# and a clickable link to the referenced location.
+# """
 
 
 inputfile = "wpress.tex"
@@ -649,11 +649,11 @@ s=f.read()
 f.close()
 
 
-"""
-  extractbody() takes the text between a \begin{document}
-  and \end{document}, if present, (otherwise it keeps the
-  whole document), normalizes the spacing, and removes comments
-"""
+# """
+#   extractbody() takes the text between a \begin{document}
+#   and \end{document}, if present, (otherwise it keeps the
+#   whole document), normalizes the spacing, and removes comments
+# """
 s=extractbody(s)
 
 # formats tables
